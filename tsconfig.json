@@ -1,0 +1,14 @@
+{
+    "files": [
+        "src/main.ts",
+        "src/component.ts",
+        "src/door.ts"
+
+    ],
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true
+    }
+}
