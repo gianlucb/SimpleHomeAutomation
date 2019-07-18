@@ -32,7 +32,6 @@ export enum ComponentState {
 export class Component extends HTMLElement {
   name: string;
   description: string;
-  enabled: boolean;
   id: string;
 
   statusCtrlEl: HTMLElement;
@@ -48,13 +47,13 @@ export class Component extends HTMLElement {
    */
   constructor(id: string, name: string, description: string) {
     super();
-    //todo: check input validation
+    if (id == null || id.length == 0) throw "invalid id";
     this.name = name;
     this.description = description;
     this.id = id;
-    this.enabled = true;
   }
 
+  // called when added to the DOM - the first time
   connectedCallback() {
     this.appendChild(this.getTemplate());
   }
