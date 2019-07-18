@@ -10,10 +10,11 @@ export enum ComponentState {
  */
 
 /*
- HTML created by this element
+ HTML created by this element:
+
  <div class="spectrum-Card" style="width: 208px;">
     <div class="spectrum-Card-coverPhoto">
-      COVER
+      STATUS
     </div>
     <div class="spectrum-Card-body">
         <div class="spectrum-Card-header">
@@ -24,7 +25,7 @@ export enum ComponentState {
         </div>
     </div>
     <div class="spectrum-Card-footer">
-        FOOTER
+        STATUS CONTROL
     </div>
 </div>
  */
@@ -113,6 +114,8 @@ export class Component extends HTMLElement {
    * Must be defined in the derived component
    */
   getStatusControlElement(): HTMLElement {
+    this.computeStatus();
+
     return this.statusCtrlEl;
   }
 
@@ -122,13 +125,14 @@ export class Component extends HTMLElement {
    */
   getStatusElement(): HTMLElement {
     this.computeStatus();
+
     return this.statusEl;
   }
 
   /** Compute the status of this component
    * This must be overridden in a derived class
    * This should just change the HTMLElements for display and control
-   * This must also set an ID to the HTMLElements that needs to be updated
+   * This must also set an ID to the HTMLElements that need to be updated
    */
   computeStatus() {}
 
