@@ -30,11 +30,13 @@ export enum ComponentState {
  */
 
 export class Component extends HTMLElement {
-  //field
   name: string;
   description: string;
   enabled: boolean;
   id: string;
+
+  statusCtrlEl: HTMLElement;
+  statusEl: HTMLElement;
 
   /**
    * Base component, generic class to use as parent.
@@ -67,7 +69,9 @@ export class Component extends HTMLElement {
 
     let coverDiv = <HTMLDivElement>document.createElement("div");
     coverDiv.className = "spectrum-Card-coverPhoto";
-    coverDiv.appendChild(this.getStatusElement());
+    coverDiv.style.alignItems = "center";
+    let statusElement = this.getStatusElement();
+    if (statusElement != null) coverDiv.appendChild(statusElement);
 
     let bodyDiv = <HTMLDivElement>document.createElement("div");
     bodyDiv.className = "spectrum-Card-body";
@@ -110,7 +114,7 @@ export class Component extends HTMLElement {
    * Must be defined in the derived component
    */
   getStatusControlElement(): HTMLElement {
-    return null;
+    return this.statusCtrlEl;
   }
 
   /**
@@ -118,7 +122,37 @@ export class Component extends HTMLElement {
    * Must be defined in the derived component
    */
   getStatusElement(): HTMLElement {
-    return null;
+    this.computeStatus();
+    return this.statusEl;
+  }
+
+  /** Compute the status of this component
+   * This must be overridden in a derived class
+   * This should just change the HTMLElements for display and control
+   * This must also set an ID to the HTMLElements that needs to be updated
+   */
+  computeStatus() {}
+
+  /**
+   * Update the DOM of the document replacing the old values with the current ones
+   * Must be called everytime the component wants to update the page.
+   * Internally calls computeStatus() as first step
+   * It is mandatory that the two elements have an ID defined. Otherwise they will not be updated
+   */
+  updateDOM() {
+    this.computeStatus();
+
+    // redraw the UI just replacing the elements that has changed
+    if (this.statusCtrlEl != null) {
+      let currentStateCtrl = document.getElementById(this.statusCtrlEl.id);
+      if (currentStateCtrl != null)
+        currentStateCtrl.replaceWith(this.statusCtrlEl);
+    }
+
+    if (this.statusEl != null) {
+      let currentStatusEl = document.getElementById(this.statusEl.id);
+      if (currentStatusEl != null) currentStatusEl.replaceWith(this.statusEl);
+    }
   }
 }
 
