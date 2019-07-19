@@ -1,11 +1,16 @@
 import { Component } from "./component";
 
 export class Clima extends Component {
-  temp: number;
+  temperature: number;
 
   constructor(id: string, name: string, description: string) {
     super(id, name, description);
-    this.temp = Math.floor(Math.random() * (35 - 10) + 10);
+    this.temperature = Math.floor(Math.random() * (30 - 10) + 10);
+  }
+
+  changeTemperature(diff: number) {
+    this.temperature = this.temperature + diff;
+    this.updateDOM();
   }
 
   // override with the specific behavior of a Clima
@@ -15,7 +20,23 @@ export class Clima extends Component {
     this.statusEl.style.fontSize = "2.8em";
     this.statusEl.style.color = "#666666";
 
-    this.statusEl.innerHTML = "<h1>" + this.temp + "°</h1>";
+    this.statusEl.innerHTML = "<h1>" + this.temperature + "°</h1>";
+
+    this.statusCtrlEl = <HTMLDivElement>document.createElement("div");
+    this.statusCtrlEl.id = "clima_ctrl_" + this.id;
+
+    let plusEl = <HTMLButtonElement>document.createElement("button");
+    plusEl.className = "spectrum-Button spectrum-Button--cta";
+    plusEl.onclick = evt => this.changeTemperature(1);
+    plusEl.textContent = "+";
+
+    let minusEl = <HTMLButtonElement>document.createElement("button");
+    minusEl.className = "spectrum-Button spectrum-Button";
+    minusEl.onclick = evt => this.changeTemperature(-1);
+    minusEl.textContent = "-";
+
+    this.statusCtrlEl.appendChild(plusEl);
+    this.statusCtrlEl.appendChild(minusEl);
   }
 }
 
