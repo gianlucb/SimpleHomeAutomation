@@ -1,9 +1,3 @@
-export enum ComponentState {
-  On = 0,
-  Off = 1,
-  None = 2 //means does not apply
-}
-
 /**
  * Basic Automation Component. Draw itself as a Spectrum card
  * Defines some extension points where to hook to manage the component status

@@ -2,7 +2,7 @@ import { Door } from "./door";
 import { Light } from "./light";
 import { Curtain } from "./curtain";
 import { Clima } from "./clima";
-//import { MyComponent } from "./mycomponent";
+import { MyComponent } from "./mycomponent";
 
 function showPanel() {
   const curtainsEl = document.getElementById("curtains");
@@ -36,7 +36,7 @@ function showPanel() {
   climaEl.appendChild(new Clima("clima1", "Room", "Automatic temperature"));
   climaEl.appendChild(new Clima("clima2", "Bath", "Automatic temperature"));
 
-  //climaEl.appendChild(new MyComponent("comp", "name", "Automatic temperature"));
+  climaEl.appendChild(new MyComponent("comp", "name", "Automatic temperature"));
 }
 
 showPanel();
