@@ -5,7 +5,7 @@ PoC made with _Typescript_ and _Adobe Spectrum CSS_
 ## BUILD & RUN
 
 ```bash
-nmp install
+npm install
 gulp
 ```
 
